@@ -6,13 +6,17 @@ import type {AutoSuggestionResponse, StationPrams} from "../schema/suggestion-sc
 
 
 export async function AutoSuggestion(
-    query: string
+    query: string,
+    sourceStn?:string
 ): Promise<Result<StationPrams[], AppError>> {
     try {
-        const response = await fetch(
-            `https://cttrainsapi.confirmtkt.com/api/v2/trains/stations/auto-suggestion?searchString=${query}&sourceStnCode=&popularStnListLimit=15&preferredStnListLimit=6&channel=mwebd&language=EN`
-        );
+        const baseUrl = "https://cttrainsapi.confirmtkt.com/api/v2/trains/stations/auto-suggestion";
+        const url =
+            `${baseUrl}?searchString=${query}` +
+            (sourceStn ? `&sourceStnCode=${sourceStn}` : "") +
+            `&popularStnListLimit=15&preferredStnListLimit=6&channel=mwebd&language=EN`;
 
+        const response = await fetch(url);
         if (!response.ok) {
             logger.error(`HTTP error! Status: ${response.status}`);
             return err({
@@ -23,7 +27,7 @@ export async function AutoSuggestion(
         const data: AutoSuggestionResponse = await response.json();
         const stationList: StationPrams[] = data.data?.stationList ?? [];
 
-        const station = stationList.map((station) => {
+        const station = stationList.map((station:StationPrams) => {
             return {
                 stationCode: station.stationCode,
                 stationName: station.stationName,

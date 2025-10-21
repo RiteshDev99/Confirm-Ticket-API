@@ -22,11 +22,14 @@ routes.get("/", (c) => {
 
 routes.get("/search", async (c) => {
     const query = c.req.query("q");
+    const sourceStn = c.req.query("sourceStn");
+
     if (!query) {
-        return handleResult(err(new BadRequestError("q, parameters are required")));
+        return handleResult(err(new BadRequestError("Query parameter 'q' is required")));
     }
-    const suggestions = await AutoSuggestion(query);
+
+    const suggestions = await AutoSuggestion(query, sourceStn);
+
     return handleResult(suggestions);
 });
-
 export default routes;
