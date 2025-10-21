@@ -3,18 +3,11 @@ import { err, ok, Result } from "neverthrow";
 import { type AppError } from "../utils/error/errors.ts";
 import type {AutoSuggestionResponse, StationPrams} from "../schema/suggestion-schema.ts";
 
-
-
 export async function AutoSuggestion(
     query: string,
-    sourceStn?:string
 ): Promise<Result<StationPrams[], AppError>> {
     try {
-        const baseUrl = "https://cttrainsapi.confirmtkt.com/api/v2/trains/stations/auto-suggestion";
-        const url =
-            `${baseUrl}?searchString=${query}` +
-            (sourceStn ? `&sourceStnCode=${sourceStn}` : "") +
-            `&popularStnListLimit=15&preferredStnListLimit=6&channel=mwebd&language=EN`;
+        const url = `https://cttrainsapi.confirmtkt.com/api/v2/trains/stations/auto-suggestion?searchString=${query}&sourceStnCode=&popularStnListLimit=15&preferredStnListLimit=6&channel=mwebd&language=EN`
 
         const response = await fetch(url);
         if (!response.ok) {

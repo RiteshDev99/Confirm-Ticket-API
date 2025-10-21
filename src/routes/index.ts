@@ -3,10 +3,8 @@
  * **/
 import {Hono} from "hono";
 import type {AppEnv} from "../config/app-env.ts";
-import {AutoSuggestion} from "../service/auto-suggestion.ts";
-import {handleResult} from "../utils/error/response-handler.ts";
-import {BadRequestError} from "../utils/error/errors.ts";
-import {err} from "neverthrow";
+
+import locationRoutes from "./location-routes.ts";
 
 const routes = new Hono<AppEnv>();
 
@@ -20,16 +18,7 @@ routes.get("/", (c) => {
     });
 });
 
-routes.get("/search", async (c) => {
-    const query = c.req.query("q");
-    const sourceStn = c.req.query("sourceStn");
+routes.route("/location", locationRoutes);
 
-    if (!query) {
-        return handleResult(err(new BadRequestError("Query parameter 'q' is required")));
-    }
 
-    const suggestions = await AutoSuggestion(query, sourceStn);
-
-    return handleResult(suggestions);
-});
 export default routes;
