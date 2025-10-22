@@ -3,7 +3,7 @@ export type SuccessResponse<T = unknown> = {
     status: number;
     timestamp: number;
     message: string;
-    data: T;
+    response: T;
 };
 
 export type ErrorResponse = {
@@ -23,7 +23,7 @@ export function success<T>(message: string, data: T): SuccessResponse {
         status: 200,
         timestamp: Date.now(),
         message,
-        data,
+        response: data,
     };
 }
 
