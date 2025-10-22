@@ -20,7 +20,7 @@ stationServicesRoutes.get("/suggestions", async (c) => {
 });
 
 
-stationServicesRoutes.get("/trains-list", async (c) => {
+stationServicesRoutes.get("/train-list", async (c) => {
     const fromStn = c.req.query("fromStn");
     const toStn = c.req.query("toStn");
 
