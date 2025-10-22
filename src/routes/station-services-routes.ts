@@ -6,9 +6,9 @@ import {BadRequestError} from "../utils/error/errors.ts";
 import {AutoSuggestion} from "../service/auto-suggestion.ts";
 import {TrainsList} from "../service/search-trainsList.ts";
 
-const locationRoutes = new Hono<AppEnv>();
+const stationServicesRoutes = new Hono<AppEnv>();
 
-locationRoutes.get("/suggestions", async (c) => {
+stationServicesRoutes.get("/suggestions", async (c) => {
     const query = c.req.query("q");
 
     if (!query) {
@@ -20,16 +20,15 @@ locationRoutes.get("/suggestions", async (c) => {
 });
 
 
-locationRoutes.get("/TrainsList", async (c) => {
-    const fromStationName = c.req.query("fromStationName");
-    const toStationName = c.req.query("toStationName");
+stationServicesRoutes.get("/trains-list", async (c) => {
+    const fromStn = c.req.query("fromStn");
+    const toStn = c.req.query("toStn");
 
-    if (!fromStationName || !toStationName) {
-        return handleResult(err(new BadRequestError("Both 'fromStationName' and 'toStationName' are required.")));
+    if (!fromStn || !toStn) {
+        return handleResult(err(new BadRequestError("Both 'fromStn' and 'toStn' are required.")));
     }
-
-    const suggestions = await TrainsList(fromStationName, toStationName);
+    const suggestions = await TrainsList(fromStn, toStn);
     return handleResult(suggestions);
 });
 
-export default locationRoutes;
+export default stationServicesRoutes;

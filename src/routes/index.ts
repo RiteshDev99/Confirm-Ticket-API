@@ -1,7 +1,7 @@
 import {Hono} from "hono";
 import type {AppEnv} from "../config/app-env.ts";
 
-import locationRoutes from "./location-routes.ts";
+import stationServicesRoutes from "./station-services-routes.ts";
 
 const routes = new Hono<AppEnv>();
 
@@ -15,7 +15,7 @@ routes.get("/", (c) => {
     });
 });
 
-routes.route("/location", locationRoutes);
+routes.route("/station", stationServicesRoutes);
 
 
 export default routes;
