@@ -4,10 +4,11 @@ import { type AppError } from "../utils/error/errors.ts";
 import type {AutoSuggestionResponse, StationPrams} from "../schema/suggestion-schema.ts";
 
 export async function AutoSuggestion(
-    query: string,
+    query: string | null,
 ): Promise<Result<StationPrams[], AppError>> {
     try {
-        const url = `https://cttrainsapi.confirmtkt.com/api/v2/trains/stations/auto-suggestion?searchString=${query}&sourceStnCode=&popularStnListLimit=15&preferredStnListLimit=6&channel=mwebd&language=EN`
+
+        const url = `https://cttrainsapi.confirmtkt.com/api/v2/trains/stations/auto-suggestion?searchString=${query}&language=EN&sourceStnCode=&latitude=0.0&longitude=0.0&popularStnListLimit=15&preferredStnListLimit=6&channel=android`.replace(/\s+/g, "");
 
         const response = await fetch(url);
         if (!response.ok) {
