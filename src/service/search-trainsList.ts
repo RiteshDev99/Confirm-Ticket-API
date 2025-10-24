@@ -8,7 +8,7 @@ export async function TrainsList(
 ): Promise<Result<unknown, AppError>> {
     try {
         const url =
-            `https://cttrainsapi.confirmtkt.com/api/v1/trains/search?sourceStationCode=${fromStn}&destinationStationCode=${toStn}&addAvailabilityCache=true&excludeMultiTicketAlternates=false&excludeBoostAlternates=false&sortBy=DEFAULT&dateOfJourney=23-10-2025&enableNearby=true&enableTG=true&tGPlan=CTG-A9&showTGPrediction=false&tgColor=DEFAULT&showPredictionGlobal=true`;
+            `https://cttrainsapi.confirmtkt.com/api/v1/trains/search?sourceStationCode=${fromStn}&destinationStationCode=${toStn}&addAvailabilityCache=true&excludeMultiTicketAlternates=false&excludeBoostAlternates=false&sortBy=DEFAULT&dateOfJourney=24-10-2025&enableNearby=true&enableTG=true&tGPlan=CTG-A9&showTGPrediction=false&tgColor=DEFAULT&showPredictionGlobal=true`;
 
         const response = await fetch(url);
         if (!response.ok) {
