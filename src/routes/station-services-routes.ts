@@ -10,7 +10,6 @@ const stationServicesRoutes = new Hono<AppEnv>();
 
 stationServicesRoutes.get("/suggestions", async (c) => {
     const query = c.req.query("q") ?? "";
-
     const suggestions = await AutoSuggestion(query);
     return (handleResult(suggestions));
 });
