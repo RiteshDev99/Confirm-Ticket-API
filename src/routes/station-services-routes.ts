@@ -9,13 +9,9 @@ import {TrainsList} from "../service/search-trainsList.ts";
 const stationServicesRoutes = new Hono<AppEnv>();
 
 stationServicesRoutes.get("/suggestions", async (c) => {
-    const query = c.req.query("q");
-    if (!query) {
-        return c.text('', 200);
-    }
+    const query = c.req.query("q") ?? "";
 
     const suggestions = await AutoSuggestion(query);
-
     return (handleResult(suggestions));
 });
 
