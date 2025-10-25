@@ -4,7 +4,7 @@ import { type AppError } from "../utils/error/errors.ts";
 import type {AutoSuggestionResponse, StationPrams} from "../schema/suggestion-schema.ts";
 
 export async function AutoSuggestion(
-    query: string | null,
+    query: string ,
 ): Promise<Result<StationPrams[], AppError>> {
     try {
 
