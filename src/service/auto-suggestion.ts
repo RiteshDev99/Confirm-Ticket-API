@@ -20,7 +20,7 @@ export async function AutoSuggestion(
 
         const data: AutoSuggestionResponse = await response.json();
         const stationList: StationPrams[] = data.data?.stationList ?? [];
-
+        const popularStationList: StationPrams[] = data.data?.popularStationList ?? [];
         const station = stationList.map((station:StationPrams) => {
             return {
                 stationCode: station.stationCode,
@@ -32,8 +32,14 @@ export async function AutoSuggestion(
             };
         });
 
+        console.log(popularStationList)
         logger.info("Station List:\n" + JSON.stringify(station, null, 2));
-        return ok(station);
+        logger.info("PopularStationList:\n" + JSON.stringify(popularStationList, null, 2));
+        
+      return ok({
+            ...station,
+            ...popularStationList,
+      });
     } catch (e) {
         logger.error("AutoSuggestion Error ::", e);
         return err({ message: "Failed to fetch stations" } as AppError);
@@ -41,3 +47,4 @@ export async function AutoSuggestion(
 }
 
 
+AutoSuggestion('')

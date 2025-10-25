@@ -12,5 +12,7 @@ export interface StationPrams {
 export interface AutoSuggestionResponse {
     data?: {
         stationList?: StationPrams[];
+        popularStationList?: StationPrams[];
     };
 }
+
